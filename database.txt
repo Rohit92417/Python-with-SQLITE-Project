@@ -1,0 +1,45 @@
+
+conn.execute('''CREATE TABLE IF NOT EXISTS categories 
+       (category_id INT NOT NULL, 
+       category_description TEXT NOT NULL,
+       PRIMARY KEY(category_id));''')
+conn.execute("""INSERT INTO categories VALUES (1,'Audio and Hifi');""")
+conn.execute("""INSERT INTO categories VALUES (2,'Cameras and accessories');""")
+conn.execute("""INSERT INTO categories VALUES (3,'Computers and accessories');""")
+conn.execute("""INSERT INTO categories VALUES (4,'Gaming');""")
+conn.execute("""INSERT INTO categories VALUES (5,'Mobile phones and accessoriesi');""")
+conn.execute("""INSERT INTO categories VALUES (6,'TV and Home Cinema');""")
+
+conn.execute('''CREATE TABLE IF NOT EXISTS Product 
+            (product_id INT NOT NULL, 
+            product_description TEXT NOT NULL, 
+            manufactures TEXT NOT NULL, 
+            model TEXT NOT NULL,
+            category_id INT NOT NULL,
+            status TEXT,
+            PRIMARY KEY(product_id),
+            FOREIGN KEY (category_id) REFERENCES categories(category_id));''')
+conn.execute("""INSERT INTO Product
+VALUES (1600,' Samsung Galaxy M30s SIM Free Smartphone','Samsung','Samsung Galaxy M30s','5','Available');""")
+conn.execute("""INSERT INTO product
+VALUES (5310,' Samsung Galaxy M20s 64GB SIM Free Smartphone','Samsung','Samsung Galaxy M20s','5','Temporarily Unavailable');""")
+conn.execute("""INSERT INTO product
+VALUES (2314,' iphone 128GB Free Smartphone','Apple', 'iphone 12 pro','6','Available');""")
+conn.execute("""INSERT INTO product
+VALUES (3233,'Huawei Y6 32Gb 6.09 inch Smartphone','Huawei', 'Huawei Y6','1','Available');""")
+conn.execute("""INSERT INTO product
+VALUES (2316,' iphone 256GB Free Smartphone','Apple', 'iphone 12 pro','2','Discontinued');""")
+
+
+conn.execute('''CREATE TABLE IF NOT EXISTS Seller
+            (seller_id INT  NOT NULL, 
+            seller_name TEXT NOT NULL,
+            product_id NOT NULL,
+            FOREIGN KEY (product_id) REFERENCES Product(product_id));''')
+conn.execute("""INSERT INTO seller VALUES (2000,' Barracuda',1600); """)
+conn.execute("""INSERT INTO seller VALUES (2002,' Orinoco UK',5310); """)
+conn.execute("""INSERT INTO seller VALUES (2001,' Amazon',2314); """)
+conn.execute("""INSERT INTO seller VALUES (2010,' stuff UK',2316); """)
+
+
+conn.commit()
